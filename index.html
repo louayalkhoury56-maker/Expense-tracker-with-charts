@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>💰 Expense Tracker</h1>
+        <p>Track your expenses and manage your budget effectively</p>
+      </header>
+
+      <!-- Summary Cards -->
+      <section class="summary-grid">
+        <div class="summary-card income">
+          <div class="summary-card-label">Total Income</div>
+          <div class="summary-card-value">$0.00</div>
+          <div class="summary-card-change">↑ 0% from last month</div>
+        </div>
+        <div class="summary-card expense">
+          <div class="summary-card-label">Total Expenses</div>
+          <div class="summary-card-value">$0.00</div>
+          <div class="summary-card-change">↓ 0% from last month</div>
+        </div>
+        <div class="summary-card balance">
+          <div class="summary-card-label">Current Balance</div>
+          <div class="summary-card-value">$0.00</div>
+          <div class="summary-card-change">Available to spend</div>
+        </div>
+        <div class="summary-card savings">
+          <div class="summary-card-label">Savings Goal</div>
+          <div class="summary-card-value">$0.00</div>
+          <div class="summary-card-change">0% achieved</div>
+        </div>
+      </section>
+
+      <!-- Add Expense Form -->
+      <section class="card form-section">
+        <div class="card-header">
+          <h2 class="card-title">Add New Transaction</h2>
+        </div>
+        <form class="form-grid" id="transactionForm">
+          <div class="form-group">
+            <label class="form-label" for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              class="form-input"
+              placeholder="Enter description"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              class="form-input"
+              placeholder="$0.00"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="category">Category</label>
+            <select id="category" class="form-select">
+              <option>Food & Dining</option>
+              <option>Transportation</option>
+              <option>Shopping</option>
+              <option>Utilities</option>
+              <option>Entertainment</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="type">Type</label>
+            <select id="type" class="form-select">
+              <option>Expense</option>
+              <option>Income</option>
+            </select>
+          </div>
+          <div class="form-group" style="justify-content: flex-end">
+            <button type="submit" class="btn btn-primary">
+              Add Transaction
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Transactions List -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Transactions</h2>
+          <span class="card-badge">Last Transactions</span>
+        </div>
+        <div class="transactions-list" id="transactionsList">
+          <!-- JS will populate transactions here -->
+        </div>
+      </section>
+
+      <!-- Charts -->
+      <section class="main-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Monthly Overview</h2>
+            <span class="card-badge">Year</span>
+          </div>
+          <div class="bar-chart" id="barChart">
+            <!-- JS will generate bars -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Expenses by Category</h2>
+            <span class="card-badge">This Month</span>
+          </div>
+          <div class="pie-chart-container">
+            <div class="pie-chart" id="pieChart">
+              <!-- JS will generate pie chart -->
+            </div>
+            <div class="pie-legend" id="pieLegend">
+              <!-- JS will generate legend -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>Expense Tracker &copy; 2024 | Track Smart, Save More</p>
+      </footer>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

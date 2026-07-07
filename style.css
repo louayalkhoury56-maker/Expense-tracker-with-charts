@@ -1,0 +1,718 @@
+/* ===== RESET AND BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== CSS VARIABLES (الألوان والمتغيرات) ===== */
+:root {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --dark: #1e293b;
+  --gray: #64748b;
+  --light-gray: #e2e8f0;
+  --background: #f8fafc;
+  --white: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== BODY STYLES (تنسيق الصفحة الأساسي) ===== */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* ===== CONTAINER (المحتوى الرئيسي) ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ===== HEADER (الرأس) ===== */
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.summary-card.income::before {
+  background: var(--success);
+}
+
+.summary-card.expense::before {
+  background: var(--danger);
+}
+
+.summary-card.balance::before {
+  background: var(--primary);
+}
+
+.summary-card.savings::before {
+  background: var(--warning);
+}
+
+.summary-card-label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.summary-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.summary-card.income .summary-card-value {
+  color: var(--success);
+}
+
+.summary-card.expense .summary-card-value {
+  color: var(--danger);
+}
+
+.summary-card.balance .summary-card-value {
+  color: var(--primary);
+}
+
+.summary-card.savings .summary-card-value {
+  color: var(--warning);
+}
+
+.summary-card-change {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: var(--gray);
+}
+
+/* Main Content Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.card {
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.card-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--background);
+  border-radius: 1rem;
+  color: var(--gray);
+}
+
+/* ===== BAR CHART (الرسم البياني العمودي للدخل والمصروفات) ===== */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 250px;
+  padding: 2rem 1rem;
+  gap: 0.5rem;
+}
+
+/* مجموعة الأعمدة (شهر واحد) */
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+/* الأعمدة الفردية */
+.bar {
+  width: 24px;
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.05);
+}
+
+.bar.income {
+  background: linear-gradient(to top, var(--success), #34d399);
+}
+
+.bar.expense {
+  background: linear-gradient(to top, var(--danger), #f87171);
+}
+
+/* تسمية الشهر */
+.bar-label {
+  font-size: 0.75rem;
+  color: var(--gray);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* ===== PIE CHART (الرسم البياني الدائري) ===== */
+.pie-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.pie-chart {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ef4444 0deg 90deg,
+    #f59e0b 90deg 162deg,
+    #10b981 162deg 234deg,
+    #3b82f6 234deg 288deg,
+    #8b5cf6 288deg 324deg,
+    #ec4899 324deg 360deg
+  );
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+/* الدائرة البيضاء في المنتصف */
+.pie-chart::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+/* القيمة في المنتصف (ديناميكية من JS) */
+.pie-chart::after {
+  content: attr(data-value);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* وسيلة إيضاح الرسم البياني */
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pie-legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.pie-legend > div span:first-child {
+  font-size: 1.2rem;
+}
+
+.pie-legend > div span:last-child {
+  color: var(--gray);
+}
+
+/* Progress Bars */
+.budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.budget-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.budget-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budget-category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.budget-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.budget-icon.food {
+  background: #fef2f2;
+}
+.budget-icon.transport {
+  background: #fffbeb;
+}
+.budget-icon.utilities {
+  background: #ecfdf5;
+}
+.budget-icon.shopping {
+  background: #eff6ff;
+}
+
+.budget-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.budget-amount {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.budget-amount span {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--light-gray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.good {
+  background: var(--success);
+}
+.progress-fill.warning {
+  background: var(--warning);
+}
+.progress-fill.danger {
+  background: var(--danger);
+}
+
+/* ===== TRANSACTIONS LIST (قائمة المعاملات) ===== */
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  background: var(--background);
+  border-radius: 0.75rem;
+  border-left: 3px solid var(--light-gray);
+  transition: all 0.2s ease;
+}
+
+.transaction-item:hover {
+  background: var(--light-gray);
+  border-left-color: var(--primary);
+}
+
+/* بيانات المعاملة */
+.transaction-item span {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.transaction-item span:first-child {
+  font-weight: 500;
+  color: var(--dark);
+  min-width: 150px;
+}
+
+.transaction-item span:nth-child(2) {
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.transaction-item span:nth-child(3),
+.transaction-item span:nth-child(4) {
+  color: var(--gray);
+  font-size: 0.85rem;
+  min-width: 120px;
+}
+
+/* الأزرار (تعديل وحذف) */
+.transaction-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.transaction-item button:hover {
+  background: var(--white);
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  color: var(--info);
+}
+
+.delete-btn {
+  color: var(--danger);
+}
+
+/* Weekly Trend Chart */
+.trend-chart {
+  position: relative;
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 1rem 0;
+}
+
+.trend-bar {
+  flex: 1;
+  background: linear-gradient(to top, var(--primary), var(--primary-light));
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+.trend-bar::after {
+  content: attr(data-day);
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--gray);
+}
+
+/* Full Width Section */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===== FORM STYLES (تنسيق النموذج) ===== */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.form-input,
+.form-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--light-gray);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: var(--dark);
+  background: var(--white);
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+  box-shadow: var(--shadow);
+}
+
+.btn-success {
+  background: var(--success);
+  color: var(--white);
+}
+
+.btn-success:hover {
+  background: #059669;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray);
+  font-size: 0.875rem;
+  border-top: 1px solid var(--light-gray);
+  margin-top: 3rem;
+}
+
+/* ===== RESPONSIVE DESIGN (تصميم متجاوب للهواتف والأجهزة الصغيرة) ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pie-chart-container {
+    gap: 2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-item {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .transaction-item span {
+    flex: 0 0 auto;
+  }
+
+  .transaction-item button {
+    margin-left: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.25rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .summary-card-value {
+    font-size: 1.5rem;
+  }
+
+  .bar-chart {
+    height: 200px;
+    padding: 1rem 0.5rem;
+  }
+
+  .bar {
+    width: 18px;
+  }
+
+  .pie-chart {
+    width: 150px;
+    height: 150px;
+  }
+
+  .pie-legend {
+    gap: 0.5rem;
+  }
+
+  .pie-legend > div {
+    font-size: 0.8rem;
+  }
+
+  .transaction-item {
+    padding: 0.75rem;
+  }
+
+  .transaction-item span {
+    font-size: 0.85rem;
+    min-width: auto;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
